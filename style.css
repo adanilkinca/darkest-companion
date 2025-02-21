@@ -29,13 +29,51 @@ h1 {
   margin-bottom: 20px;
 }
 
-.torch-radio-group > div {
+.location-selector,
+.length-selector {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column; /* Fixes buttons disappearing */
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.location-length-container {
+  display: flex;
+  flex-direction: column; /* Stack on smaller screens */
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+@media (min-width: 768px) { /* Apply horizontal layout on larger screens */
+  .location-length-container {
+    flex-direction: row; 
+  }
+}
+
+.torch-radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Wrap if necessary on smaller screens */
+  gap: 15px;
+}
+
+.torch-radio-container {
+  display: flex;
+  flex-direction: row; /* Horizontal alignment */
+  gap: 10px; /* Adds space between options */
+  justify-content: center;
+  align-items: center;
 }
 
 .torch-radio {
-  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   cursor: url(./cursor_link.png), auto;
 }
 
@@ -112,6 +150,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 20px;
 }
 
 .centered {

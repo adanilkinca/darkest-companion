@@ -1,25 +1,32 @@
 import React from 'react';
-import RadioGroup from 'react-radio-group';
 import Capitalize from '../components/capitalize';
 
-const renderOption = (Radio, option) => {
-  return <label className='torch-radio' key={`option-${option}`} htmlFor={option}>
-    <Radio id={option} value={option}/>
-    <i className='torch-radio-icon'/>
-    <div className='torch-radio-label'>
-      <Capitalize text={option}/>
-    </div>
-  </label>
-}
+export function TorchRadioGroup({ selectedValue, onChange, name, options = [] }) {
+  console.log("💡 TorchRadioGroup received options:", options);
 
-const renderOptions = (options) => (Radio) => {
-  return <div>{options.map(renderOption.bind(null, Radio))}</div>
-}
+  if (!options || options.length === 0) {
+    console.error("🚨 TorchRadioGroup received empty options! Check Redux state.");
+    return <p>No options available</p>;
+  }
 
-export function TorchRadioGroup({selectedValue, onChange, name, options}) {
-    return <div className="torch-radio-group">
-      <RadioGroup name={name} selectedValue={selectedValue} onChange={onChange}>
-          {renderOptions(options)}
-      </RadioGroup>
+  return (
+    <div className="torch-radio-group">
+      {options.map(option => (
+        <label className='torch-radio' key={option} htmlFor={option}>
+          <input 
+            type="radio" 
+            id={option} 
+            name={name} 
+            value={option} 
+            checked={selectedValue === option} 
+            onChange={() => onChange(option)}
+          />
+          <i className='torch-radio-icon' />
+          <div className='torch-radio-label'>
+            <Capitalize text={option} />
+          </div>
+        </label>
+      ))}
     </div>
+  );
 }

@@ -31,6 +31,7 @@ export const LENGTHS = [
 const initialState = {
   selectedLocation: LOCATIONS[0],
   selectedLength: LENGTHS[0],
+  locations: [...LOCATIONS],
 };
 
 export default function missionReducer(state = initialState, { type, payload }) {
@@ -78,3 +79,9 @@ export const getSelectedLocationAndLength = createSelector(
   getSelectedLength,
   ({selectedLocation}, {selectedLength}) => ({selectedLocation, selectedLength})
 )
+
+export const getLocations = createSelector(
+  getMission,
+  (mission) => mission.locations
+);
+

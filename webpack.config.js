@@ -1,44 +1,38 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
-  devtool: process.env.WEBPACK_DEVTOOL || 'source-map',
+  entry: "./src/index.js",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
+    path: path.resolve(__dirname, "public"),
+    filename: "bundle.js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loaders: process.env.NODE_ENV !== 'production' ? ['react-hot', 'babel'] : ['babel'],
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"]
+          }
+        }
       }
     ]
   },
   devServer: {
-    contentBase: "./public",
-    noInfo: true,
+    static: path.join(__dirname, "public"),
+    historyApiFallback: true,
     hot: true,
-    inline: true
+    compress: true,
+    port: 3000
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'dev')
-      }
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
     })
   ]
 };
-
-if (process.env.NODE_ENV !== 'production') {
-  module.exports.entry.push('webpack-dev-server/client?http://0.0.0.0:8080');
-  module.exports.entry.push('webpack/hot/only-dev-server');
-}
