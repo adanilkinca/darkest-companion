@@ -7,7 +7,7 @@ A [Darkest Dungeon](http://www.darkestdungeon.com/) curios and provisions helper
 # Build and run
 
 ```bash
-npm install && npm run build
+npm install && npm start
 ```
 
 In dev mode
@@ -15,3 +15,4 @@ In dev mode
 ```bash
 npm run dev
 ```
+the last worked well version without the panel. Port: 3000
