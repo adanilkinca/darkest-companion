@@ -16,3 +16,5 @@ In dev mode
 npm run dev
 ```
 the last worked well version without the panel. Port: 3000
+
+worked link: https://adanilkinca.github.io/darkest-companion/
